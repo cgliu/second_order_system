@@ -1,0 +1,230 @@
+#+Title:     Second-order System and Its Control
+#+AUTHOR:    Chenggang(Frank) Liu
+#+EMAIL:     cgliu2008@gmail.com
+# DATE:      2014-01-31
+
+#+OPTIONS: toc:3 author:t creator:nil
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./layout.css" />
+#+HTML_HEAD: <style type="text/css">body{ max-width:80%; }</style>
+#+INFOJS_OPT: path:../js/org-info.js view:showall toc:nil ltoc:nil tdepth:2 mouse:#dddddd
+#+HTML_LINK_UP: index.html
+
+* Goals
+  - Figure out the connection between a full-state feedback system dynamics and the mechanical system mechanics
+  - Figure out the connection between the feedback $K$ and the time response
+  - Figure out the way to find the best $K$
+
+* Continuous-time Second Order System and Its Control
+  The continuous-time dynamics of interest is
+  \begin{eqnarray*}
+  x_{next} &=&
+  \begin{bmatrix}
+  0 & 1 \\
+  0 & 0
+  \end{bmatrix}
+  x +
+  \begin{bmatrix}
+  0 \\
+  1
+  \end{bmatrix} u
+  \end{eqnarray*}
+
+  We are particularly interested in a full-state feedback controller, such as
+  \[
+  u = - K x
+  \]
+
+  where $K := [k_1 \; k_2]$, $k_1$ and $k_2$ is the feedback control gains. Such control is often called PD control, where $k_1$ is the P (Proportional)
+  gain, and $k_2$ is the D (Derivative) gain.
+
+  Hereafter, we will study the closed-loop dynamics of such dynamics. It is interesting because we will find many
+  systems in the real life have such dynamics, such as to control the position by controlling the acceleration,
+  and etc.
+
+  The closed-loop system dynamics is determined by the eigenvalues of the state transition matrix: $T := A - B K$.
+  \[
+  T = \left[\begin{matrix}0 & 1\\- k_{1} & - k_{2}\end{matrix}\right]
+  \]
+  and its eigenvalues are (see Appendix 1):
+  \[
+  \left[\begin{matrix}- \frac{k_{2}}{2} - \frac{\sqrt{- 4 k_{1} + k_{2}^{2}}}{2}\\- \frac{k_{2}}{2} + \frac{\sqrt{- 4 k_{1} + k_{2}^{2}}}{2}\end{matrix}\right]
+  \]
+
+
+  #+begin_center
+  #+caption: Second-order mechanical system
+  #+name: fig:mass-spring-damper
+  #+attr_html: :width 400px
+  #+attr_latex: :width 400px
+  [[file:second_order_mechanical_system.png]]
+  #+end_center
+
+  Now let's look at a mass-spring-damper mechanics system as shown in Fig. [[fig:mass-spring-damper]]. it's poles are given by
+  \[
+  \left[\begin{matrix}- \frac{b}{2m} - \frac{\sqrt{- 4 mk + b^{2}}}{2m}\\- \frac{b}{2m} + \frac{\sqrt{- 4 mk + b^{2}}}{2m}\end{matrix}\right]
+  \]
+
+  Compared with these two equations, we will find that the closed-loop feedback system dynamics is equivalent to the
+  mass-spring-damper system as shown in Fig. [[fig:mass-spring-damper]], where \[ k = k_1 m \] \[ b = k_2 m \]
+
+  The damping radio $\xi$ and natural frequency $\omega_n$ of the mechanical system are given by:
+  \[ \omega_n = \sqrt{\frac{k}{m}}\]
+  and
+  \[ \xi = \frac{b}{2\sqrt{km}} \]
+
+  Therefore, the damping radio $\xi$ and natural frequency $\omega_n$ in term of $k_1$ and $k_2$ are given by:
+  \[ \omega_n = \sqrt{k_1} \]
+  and
+  \[ \xi = \frac{k_2}{2\sqrt{k_1}} \]
+
+  This can explain why the higher the P gain, the faster it oscillates. The higher the D gain, the faster
+  it decays.
+
+  There are four classes of pole locations in term of the feedback gains [fn:second-order-system]:
+  - First, if $\xi= 0$, the system is undamped, it will oscillate at natural frequency.
+  - If $0 < \xi < 1$, the system is underdamped.
+  - If $\xi = 1$, the system is critically damped.
+  - Finally, $\xi > 1$, the system is overdamped.
+
+  For mass-spring-damper system, it is easy to prove that the magnitudes of eigenvalues are always negative. Therefore, it is always stable.
+
+[fn:second-order-system] https://ocw.mit.edu/courses/mechanical-engineering/2-003-modeling-dynamics-and-control-i-spring-2005/readings/notesinstalment2.pdf
+
+* Discrete-time second Order System and Its Control
+  The discrete time dynamics of interest is
+  \begin{eqnarray*}
+  x_{next} &=&
+  \begin{bmatrix}
+  1 & dt \\
+  0 & 1
+  \end{bmatrix}
+  x +
+  \begin{bmatrix}
+  \frac{1}{2} dt^2 \\
+  dt
+  \end{bmatrix} u \\
+  u &=& - \begin{bmatrix}
+  k_1 & k_2
+  \end{bmatrix} x
+  \end{eqnarray*}
+
+  The closed-loop system dynamics (aka Homogeneous DE) becomes (see Appendix 2 for octave code):
+  \[
+  x_{next} = (A - B K) x
+  \]
+  The system response is determined by the poles of $A - B K$, which are:
+  \[
+  \lambda_1 = 1 - \frac{dt^{2} k_{1}}{4} - \frac{dt k_{2}}{2} - \frac{\sqrt{dt^{2} \left(dt^{2} k_{1}^{2} + 4 dt k_{1} k_{2} - 16 k_{1} + 4 k_{2}^{2}\right)}}{4}
+  \]
+
+  \[
+  \lambda_2 = 1 - \frac{dt^{2} k_{1}}{4} - \frac{dt k_{2}}{2} + \frac{\sqrt{dt^{2} \left(dt^{2} k_{1}^{2} + 4 dt k_{1} k_{2} - 16 k_{1} + 4 k_{2}^{2}\right)}}{4}
+  \]
+
+  #+begin_center
+  #+caption: Mapping for constant normalized frequencies $\omega_n T$
+  #+name: fig:mapping-normalized-frequencies
+  #+attr_html: :width 400px
+  #+attr_latex: :width 400px
+  [[file:const_norm_frequency_mapping.png]]
+  #+end_center
+
+  #+begin_center
+  #+caption: Mapping for constant damping $\xi$
+  #+name: fig:mapping-damping
+  #+attr_html: :width 400px
+  #+attr_latex: :width 400px
+  [[file:const_damping_mapping.png]]
+  #+end_center
+
+  #+begin_center
+  #+caption: Pole in z-plane and its time response
+  #+attr_html: :width 400px
+  #+attr_latex: :width 400px
+  [[file:z-plane-pole-response.png]]
+  #+end_center
+  Refer to  [fn:dt-system]
+
+  The stability of the closed-loop system is determined by the magnitudes of both eigenvalues.
+  #+begin_center
+  #+caption: the first pole's magnitude when $T=0.1$
+  #+attr_html: :width 400px
+  #+attr_latex: :width 400px
+  [[file:output/first_pole_abs.png]]
+  #+end_center
+
+  #+begin_center
+  #+caption: the second pole's magnitude when $T=0.1$
+  #+attr_html: :width 400px
+  #+attr_latex: :width 400px
+  [[file:output/second_pole_abs.png]]
+  #+end_center
+
+  #+begin_center
+  #+caption: the second pole's $\theta$ when $T=0.1$
+  #+attr_html: :width 400px
+  #+attr_latex: :width 400px
+  [[file:output/second_pole_arg.png]]
+  #+end_center
+
+  #+begin_center
+  #+caption: Black is unstable region, gray is stable w/ oscillate region, and white is stable w/o oscillation region when $T=0.1$.
+  #+attr_html: :width 400px
+  #+attr_latex: :width 400px
+  [[file:output/stable_region.png]]
+  #+end_center
+
+  #+begin_center
+  #+caption: Regions with different time step. Black is unstable region, gray is stable w/ oscillate region, and white is stable w/o oscillation region.
+  #+attr_html: :width 400px
+  #+attr_latex: :width 400px
+  [[file:output/stable_region_w_dt.gif]]
+  #+end_center
+
+  #+begin_center
+  #+caption: Gains, poles and time response when $T=0.1$
+  #+attr_html: :width 400px
+  #+attr_latex: :width 400px
+  [[file:output/gains_pose_response.gif]]
+  #+end_center
+
+
+[fn:dt-system] Discrete Systems https://fenix.tecnico.ulisboa.pt/downloadFile/3779580204929/Control_Mark%20Cannon.pdf
+
+
+* Appendix 1
+  Octave code to calculate poles in s-plant
+  #+begin_src octave
+  pkg load symbolic
+  syms a1 a2 a3 a4; A = [a1, a2; a3 a4]
+  syms b1 b2; B = [b1;b2]
+  syms k1 k2; K = [k1 k2]
+  T = [A-B*K]
+  T = subs(T, a1, 0)
+  T = subs(T, a2, 1)
+  T = subs(T, a3, 0)
+  T = subs(T, a4, 0)
+  T = subs(T, b1, 0)
+  T = subs(T, b2, 1)
+  eig(T)
+  #+end_src
+* Appendix 2
+  Octave code to calculate poles in s-plant
+  #+begin_src octave
+  pkg load symbolic;
+  syms a1 a2 a3 a4 b1 b2 k1 k2 dt
+  A = [a1 a2;
+       a3 a4]
+  B = [b1;
+       b2]
+  K = [k1 k2]
+  T = A - B * K;
+  T = subs(T, a1, 1)
+  T = subs(T, a2, dt)
+  T = subs(T, a3, 0)
+  T = subs(T, a4, 1)
+  T = subs(T, b1, dt^2/2)
+  T = subs(T, b2, dt)
+
+  simplify(eig(T))
+  #+end_src
