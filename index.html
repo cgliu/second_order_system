@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-02-18 Mon 19:07 -->
+<!-- 2019-03-03 Sun 14:51 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Second-order System and Its Control</title>
@@ -334,33 +334,36 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org33560bd">1. Goals</a></li>
-<li><a href="#org7601597">2. Continuous-time Second Order System and Its Control</a></li>
-<li><a href="#orgbf8e000">3. Discrete-time second Order System and Its Control</a></li>
-<li><a href="#orgf6dbc84">4. Appendix 1</a></li>
-<li><a href="#org4fa6e38">5. Appendix 2</a></li>
+<li><a href="#orgc93515b">1. Goals</a></li>
+<li><a href="#orga5109ed">2. Continuous-time Second Order System and Its Control</a></li>
+<li><a href="#org6d16495">3. Discrete-time second-order system and its control</a></li>
+<li><a href="#orgbb04ec9">4. Appendix 1</a></li>
+<li><a href="#org496f5bd">5. Appendix 2</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org33560bd" class="outline-2">
-<h2 id="org33560bd"><span class="section-number-2">1</span> Goals</h2>
+<div id="outline-container-orgc93515b" class="outline-2">
+<h2 id="orgc93515b"><span class="section-number-2">1</span> Goals</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+I want to answer the following questions for a second-order system:
+</p>
 <ul class="org-ul">
-<li>Figure out the connection between a full-state feedback system dynamics and the mechanical system mechanics</li>
-<li>Figure out the connection between the feedback \(K\) and the time response</li>
-<li>Figure out the way to find the best \(K\)</li>
+<li>What's the connection between a full-state feedback system dynamics and the mechanical system mechanics.</li>
+<li>What's the connection between the feedback gain \(K\) and its time response.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org7601597" class="outline-2">
-<h2 id="org7601597"><span class="section-number-2">2</span> Continuous-time Second Order System and Its Control</h2>
+<div id="outline-container-orga5109ed" class="outline-2">
+<h2 id="orga5109ed"><span class="section-number-2">2</span> Continuous-time Second Order System and Its Control</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 The continuous-time dynamics of interest is
 </p>
-\begin{eqnarray*}
+\begin{eqnarray}
+\label{eq:ct-2d-dynamics}
 x_{next} &=&
 \begin{bmatrix}
 0 & 1 \\
@@ -371,24 +374,21 @@ x +
 0 \\
 1
 \end{bmatrix} u
-\end{eqnarray*}
+\end{eqnarray}
 
 <p>
 We are particularly interested in a full-state feedback controller, such as
 \[
   u = - K x
   \]
-</p>
-
-<p>
 where \(K := [k_1 \; k_2]\), \(k_1\) and \(k_2\) is the feedback control gains. Such control is often called PD control, where \(k_1\) is the P (Proportional)
 gain, and \(k_2\) is the D (Derivative) gain.
 </p>
 
 <p>
 Hereafter, we will study the closed-loop dynamics of such dynamics. It is interesting because we will find many
-systems in the real life have such dynamics, such as to control the position by controlling the acceleration,
-and etc.
+systems in the real life have such dynamics, such as to control the position by controlling the acceleration, to control
+the speed by control the acceleration change rate, and etc.
 </p>
 
 <p>
@@ -405,7 +405,7 @@ and its eigenvalues are (see Appendix 1):
 
 <div class="org-center">
 
-<div id="orgefc580f" class="figure">
+<div id="orge504b79" class="figure">
 <p><img src="second_order_mechanical_system.png" alt="second_order_mechanical_system.png" width="400px" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Second-order mechanical system</p>
@@ -413,19 +413,27 @@ and its eigenvalues are (see Appendix 1):
 </div>
 
 <p>
-Now let's look at a mass-spring-damper mechanics system as shown in Fig. <a href="#orgefc580f">1</a>. it's poles are given by
+Now let's look at a mass-spring-damper mechanics system as shown in Fig. <a href="#orge504b79">1</a>. it's poles are given by
 \[
   \left[\begin{matrix}- \frac{b}{2m} - \frac{\sqrt{- 4 mk + b^{2}}}{2m}\\- \frac{b}{2m} + \frac{\sqrt{- 4 mk + b^{2}}}{2m}\end{matrix}\right]
   \]
 </p>
 
 <p>
-Compared with these two equations, we will find that the closed-loop feedback system dynamics is equivalent to the
-mass-spring-damper system as shown in Fig. <a href="#orgefc580f">1</a>, where \[ k = k_1 m \] \[ b = k_2 m \]
+Compared with these two equations, we will find that the closed-loop feedback system dynamics of Eq.
+\ref{eq:ct-2d-dynamics} is equivalent to the mass-spring-damper system as shown in Fig. <a href="#orge504b79">1</a>, where
+\[ k = k_1 m \] \[ b = k_2 m \]
 </p>
 
 <p>
-The damping radio \(\xi\) and natural frequency \(\omega_n\) of the mechanical system are given by:
+<b>Remark</b>: It means the P gain is corresponding to the spring coefficient and the D gain is corresponding to the
+damping coefficient. The dynamics of Eq. \ref{eq:ct-2d-dynamics} is corresponding to a unit mass mechanics system,
+where the state variables are the position and the speed, and the control is the force applied to the mass. The
+closed-loop response of the system corresponding to a <b>virtual</b> spring-damper mechanics system.
+</p>
+
+<p>
+The damping radio \(\xi\) and the natural frequency \(\omega_n\) of the mechanical system are given by:
 \[ \omega_n = \sqrt{\frac{k}{m}}\]
 and
 \[ \xi = \frac{b}{2\sqrt{km}} \]
@@ -439,31 +447,32 @@ and
 </p>
 
 <p>
-This can explain why the higher the P gain, the faster it oscillates. The higher the D gain, the faster
-it decays.
+This can explain that it will oscillates faster if we increase the P gain, \(k_1\), and will decay faster
+if we increase the D gain, \(k_2\).
 </p>
 
 <p>
 There are four classes of pole locations in term of the feedback gains <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>:
 </p>
 <ul class="org-ul">
-<li>First, if \(\xi= 0\), the system is undamped, it will oscillate at natural frequency.</li>
+<li>First, if \(\xi= 0\), the system is undamped, it will oscillate at the natural frequency.</li>
 <li>If \(0 < \xi < 1\), the system is underdamped.</li>
 <li>If \(\xi = 1\), the system is critically damped.</li>
 <li>Finally, \(\xi > 1\), the system is overdamped.</li>
 </ul>
 
 <p>
-For mass-spring-damper system, it is easy to prove that the magnitudes of eigenvalues are always negative. Therefore, it is always stable.
+For mass-spring-damper system, it is easy to prove that the magnitudes of eigenvalues are negative if the P and
+the D gain are both positive, and therefore, stable.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgbf8e000" class="outline-2">
-<h2 id="orgbf8e000"><span class="section-number-2">3</span> Discrete-time second Order System and Its Control</h2>
+<div id="outline-container-org6d16495" class="outline-2">
+<h2 id="org6d16495"><span class="section-number-2">3</span> Discrete-time second-order system and its control</h2>
 <div class="outline-text-2" id="text-3">
 <p>
-The discrete time dynamics of interest is
+The discrete-time dynamics of interest is
 </p>
 \begin{eqnarray*}
 x_{next} &=&
@@ -500,7 +509,7 @@ The system response is determined by the poles of \(A - B K\), which are:
 
 <div class="org-center">
 
-<div id="org44e7389" class="figure">
+<div id="org3b2b4b5" class="figure">
 <p><img src="const_norm_frequency_mapping.png" alt="const_norm_frequency_mapping.png" width="400px" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Mapping for constant normalized frequencies \(\omega_n T\)</p>
@@ -509,7 +518,7 @@ The system response is determined by the poles of \(A - B K\), which are:
 
 <div class="org-center">
 
-<div id="org1046892" class="figure">
+<div id="org9419b1d" class="figure">
 <p><img src="const_damping_mapping.png" alt="const_damping_mapping.png" width="400px" />
 </p>
 <p><span class="figure-number">Figure 3: </span>Mapping for constant damping \(\xi\)</p>
@@ -588,50 +597,50 @@ The stability of the closed-loop system is determined by the magnitudes of both 
 </div>
 
 
-<div id="outline-container-orgf6dbc84" class="outline-2">
-<h2 id="orgf6dbc84"><span class="section-number-2">4</span> Appendix 1</h2>
+<div id="outline-container-orgbb04ec9" class="outline-2">
+<h2 id="orgbb04ec9"><span class="section-number-2">4</span> Appendix 1</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Octave code to calculate poles in s-plant
 </p>
 <div class="org-src-container">
 <pre class="src src-octave">pkg load symbolic
-syms a1 a2 a3 a4<span style="color: #b0c4de;">;</span> A <span style="color: #b0c4de;">=</span> [a1<span style="color: #b0c4de;">,</span> a2<span style="color: #b0c4de;">;</span> a3 a4]
-syms b1 b2<span style="color: #b0c4de;">;</span> B <span style="color: #b0c4de;">=</span> [b1<span style="color: #b0c4de;">;</span>b2]
-syms k1 k2<span style="color: #b0c4de;">;</span> K <span style="color: #b0c4de;">=</span> [k1 k2]
-T <span style="color: #b0c4de;">=</span> [A<span style="color: #b0c4de;">-</span>B<span style="color: #b0c4de;">*</span>K]
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> a1<span style="color: #b0c4de;">,</span> 0)
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> a2<span style="color: #b0c4de;">,</span> 1)
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> a3<span style="color: #b0c4de;">,</span> 0)
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> a4<span style="color: #b0c4de;">,</span> 0)
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> b1<span style="color: #b0c4de;">,</span> 0)
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> b2<span style="color: #b0c4de;">,</span> 1)
+syms a1 a2 a3 a4<span style="color: #ff8A65;">;</span> A <span style="color: #ff8A65;">=</span> [a1<span style="color: #ff8A65;">,</span> a2<span style="color: #ff8A65;">;</span> a3 a4]
+syms b1 b2<span style="color: #ff8A65;">;</span> B <span style="color: #ff8A65;">=</span> [b1<span style="color: #ff8A65;">;</span>b2]
+syms k1 k2<span style="color: #ff8A65;">;</span> K <span style="color: #ff8A65;">=</span> [k1 k2]
+T <span style="color: #ff8A65;">=</span> [A<span style="color: #ff8A65;">-</span>B<span style="color: #ff8A65;">*</span>K]
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> a1<span style="color: #ff8A65;">,</span> 0)
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> a2<span style="color: #ff8A65;">,</span> 1)
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> a3<span style="color: #ff8A65;">,</span> 0)
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> a4<span style="color: #ff8A65;">,</span> 0)
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> b1<span style="color: #ff8A65;">,</span> 0)
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> b2<span style="color: #ff8A65;">,</span> 1)
 eig(T)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org4fa6e38" class="outline-2">
-<h2 id="org4fa6e38"><span class="section-number-2">5</span> Appendix 2</h2>
+<div id="outline-container-org496f5bd" class="outline-2">
+<h2 id="org496f5bd"><span class="section-number-2">5</span> Appendix 2</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Octave code to calculate poles in s-plant
 </p>
 <div class="org-src-container">
-<pre class="src src-octave">pkg load symbolic<span style="color: #b0c4de;">;</span>
+<pre class="src src-octave">pkg load symbolic<span style="color: #ff8A65;">;</span>
 syms a1 a2 a3 a4 b1 b2 k1 k2 dt
-A <span style="color: #b0c4de;">=</span> [a1 a2<span style="color: #b0c4de;">;</span>
+A <span style="color: #ff8A65;">=</span> [a1 a2<span style="color: #ff8A65;">;</span>
      a3 a4]
-B <span style="color: #b0c4de;">=</span> [b1<span style="color: #b0c4de;">;</span>
+B <span style="color: #ff8A65;">=</span> [b1<span style="color: #ff8A65;">;</span>
      b2]
-K <span style="color: #b0c4de;">=</span> [k1 k2]
-T <span style="color: #b0c4de;">=</span> A <span style="color: #b0c4de;">-</span> B <span style="color: #b0c4de;">*</span> K<span style="color: #b0c4de;">;</span>
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> a1<span style="color: #b0c4de;">,</span> 1)
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> a2<span style="color: #b0c4de;">,</span> dt)
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> a3<span style="color: #b0c4de;">,</span> 0)
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> a4<span style="color: #b0c4de;">,</span> 1)
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> b1<span style="color: #b0c4de;">,</span> dt<span style="color: #b0c4de;">^</span>2<span style="color: #b0c4de;">/</span>2)
-T <span style="color: #b0c4de;">=</span> subs(T<span style="color: #b0c4de;">,</span> b2<span style="color: #b0c4de;">,</span> dt)
+K <span style="color: #ff8A65;">=</span> [k1 k2]
+T <span style="color: #ff8A65;">=</span> A <span style="color: #ff8A65;">-</span> B <span style="color: #ff8A65;">*</span> K<span style="color: #ff8A65;">;</span>
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> a1<span style="color: #ff8A65;">,</span> 1)
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> a2<span style="color: #ff8A65;">,</span> dt)
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> a3<span style="color: #ff8A65;">,</span> 0)
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> a4<span style="color: #ff8A65;">,</span> 1)
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> b1<span style="color: #ff8A65;">,</span> dt<span style="color: #ff8A65;">^</span>2<span style="color: #ff8A65;">/</span>2)
+T <span style="color: #ff8A65;">=</span> subs(T<span style="color: #ff8A65;">,</span> b2<span style="color: #ff8A65;">,</span> dt)
 
 simplify(eig(T))
 </pre>
@@ -655,7 +664,7 @@ Discrete Systems <a href="https://fenix.tecnico.ulisboa.pt/downloadFile/37795802
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Chenggang(Frank) Liu</p>
-<p class="date">Created: 2019-02-18 Mon 19:07</p>
+<p class="date">Created: 2019-03-03 Sun 14:51</p>
 <p class="validation"></p>
 </div>
 </body>

@@ -10,13 +10,14 @@
 #+HTML_LINK_UP: index.html
 
 * Goals
-  - Figure out the connection between a full-state feedback system dynamics and the mechanical system mechanics
-  - Figure out the connection between the feedback $K$ and the time response
-  - Figure out the way to find the best $K$
+  I want to answer the following questions for a second-order system:
+  - What's the connection between a full-state feedback system dynamics and the mechanical system mechanics.
+  - What's the connection between the feedback gain $K$ and its time response.
 
 * Continuous-time Second Order System and Its Control
   The continuous-time dynamics of interest is
-  \begin{eqnarray*}
+  \begin{eqnarray}
+  \label{eq:ct-2d-dynamics}
   x_{next} &=&
   \begin{bmatrix}
   0 & 1 \\
@@ -27,19 +28,18 @@
   0 \\
   1
   \end{bmatrix} u
-  \end{eqnarray*}
+  \end{eqnarray}
 
   We are particularly interested in a full-state feedback controller, such as
   \[
   u = - K x
   \]
-
   where $K := [k_1 \; k_2]$, $k_1$ and $k_2$ is the feedback control gains. Such control is often called PD control, where $k_1$ is the P (Proportional)
   gain, and $k_2$ is the D (Derivative) gain.
 
   Hereafter, we will study the closed-loop dynamics of such dynamics. It is interesting because we will find many
-  systems in the real life have such dynamics, such as to control the position by controlling the acceleration,
-  and etc.
+  systems in the real life have such dynamics, such as to control the position by controlling the acceleration, to control
+  the speed by control the acceleration change rate, and etc.
 
   The closed-loop system dynamics is determined by the eigenvalues of the state transition matrix: $T := A - B K$.
   \[
@@ -64,10 +64,16 @@
   \left[\begin{matrix}- \frac{b}{2m} - \frac{\sqrt{- 4 mk + b^{2}}}{2m}\\- \frac{b}{2m} + \frac{\sqrt{- 4 mk + b^{2}}}{2m}\end{matrix}\right]
   \]
 
-  Compared with these two equations, we will find that the closed-loop feedback system dynamics is equivalent to the
-  mass-spring-damper system as shown in Fig. [[fig:mass-spring-damper]], where \[ k = k_1 m \] \[ b = k_2 m \]
+  Compared with these two equations, we will find that the closed-loop feedback system dynamics of Eq.
+  \ref{eq:ct-2d-dynamics} is equivalent to the mass-spring-damper system as shown in Fig. [[fig:mass-spring-damper]], where
+  \[ k = k_1 m \] \[ b = k_2 m \]
 
-  The damping radio $\xi$ and natural frequency $\omega_n$ of the mechanical system are given by:
+  *Remark*: It means the P gain is corresponding to the spring coefficient and the D gain is corresponding to the
+  damping coefficient. The dynamics of Eq. \ref{eq:ct-2d-dynamics} is corresponding to a unit mass mechanics system,
+  where the state variables are the position and the speed, and the control is the force applied to the mass. The
+  closed-loop response of the system corresponding to a *virtual* spring-damper mechanics system.
+
+  The damping radio $\xi$ and the natural frequency $\omega_n$ of the mechanical system are given by:
   \[ \omega_n = \sqrt{\frac{k}{m}}\]
   and
   \[ \xi = \frac{b}{2\sqrt{km}} \]
@@ -77,21 +83,22 @@
   and
   \[ \xi = \frac{k_2}{2\sqrt{k_1}} \]
 
-  This can explain why the higher the P gain, the faster it oscillates. The higher the D gain, the faster
-  it decays.
+  This can explain that it will oscillates faster if we increase the P gain, $k_1$, and will decay faster
+  if we increase the D gain, $k_2$.
 
   There are four classes of pole locations in term of the feedback gains [fn:second-order-system]:
-  - First, if $\xi= 0$, the system is undamped, it will oscillate at natural frequency.
+  - First, if $\xi= 0$, the system is undamped, it will oscillate at the natural frequency.
   - If $0 < \xi < 1$, the system is underdamped.
   - If $\xi = 1$, the system is critically damped.
   - Finally, $\xi > 1$, the system is overdamped.
 
-  For mass-spring-damper system, it is easy to prove that the magnitudes of eigenvalues are always negative. Therefore, it is always stable.
+  For mass-spring-damper system, it is easy to prove that the magnitudes of eigenvalues are negative if the P and
+  the D gain are both positive, and therefore, stable.
 
 [fn:second-order-system] https://ocw.mit.edu/courses/mechanical-engineering/2-003-modeling-dynamics-and-control-i-spring-2005/readings/notesinstalment2.pdf
 
-* Discrete-time second Order System and Its Control
-  The discrete time dynamics of interest is
+* Discrete-time second-order system and its control
+  The discrete-time dynamics of interest is
   \begin{eqnarray*}
   x_{next} &=&
   \begin{bmatrix}

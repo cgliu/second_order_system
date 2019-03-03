@@ -17,7 +17,7 @@ pkg load geometry;
 % Constant variables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global saving_foler visualize
-visualize = false;
+visualize = true;
 saving_foler = '/tmp/output'; %% don't change this
 mkdir("/tmp", "output");
 
@@ -57,6 +57,22 @@ function h = show_traj(traj)
   xlabel("Time [s]")
   ylabel("States");
   title("Time response");
+end
+
+function T = state_transition()
+  syms a1 a2 a3 a4 b1 b2 k1 k2 dt
+  A = [a1 a2;
+       a3 a4]
+  B = [b1;
+       b2]
+  K = [k1 k2]
+  T = A - B * K;
+  T = subs(T, a1, 1);
+  T = subs(T, a2, dt);
+  T = subs(T, a3, 0);
+  T = subs(T, a4, 1);
+  T = subs(T, b1, dt^2/2);
+  T = subs(T, b2, dt);
 end
 
 function [LL] = get_system_eigenvalues()
