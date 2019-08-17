@@ -17,7 +17,7 @@ pkg load geometry;
 % Constant variables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 global saving_foler visualize
-visualize = true;
+visualize = false;
 saving_foler = '/tmp/output'; %% don't change this
 mkdir("/tmp", "output");
 
@@ -37,6 +37,22 @@ function u = PD_controller(x, K)
   u = - K * [x(1) x(2)]';
 end
 
+function traj = sim_tvc(x0, controller, duration, dt_s)
+  %% time varying controller
+  time = 0;
+  x = x0;
+  traj = [];
+  time_step = 0;
+  while time < duration
+    u = controller(x, time_step);
+    traj = [traj; time x' u'];
+    x = dynamics(x, u, dt_s);
+
+    time = time + dt_s;
+    time_step += 1;
+  end
+end
+
 function traj = sim(x0, controller, duration, dt_s)
   time = 0;
   x = x0;
@@ -50,8 +66,8 @@ function traj = sim(x0, controller, duration, dt_s)
   end
 end
 
-function h = show_traj(traj)
-  h = plot(traj(:,1), traj(:,2:end), "LineWidth", 3);
+function show_traj(traj)
+  plot(traj(:,1), traj(:,2:end), "LineWidth", 3);
   legend('position', 'speed', 'u')
   xlim([0 10]);
   xlabel("Time [s]")
@@ -59,23 +75,7 @@ function h = show_traj(traj)
   title("Time response");
 end
 
-function T = state_transition()
-  syms a1 a2 a3 a4 b1 b2 k1 k2 dt
-  A = [a1 a2;
-       a3 a4]
-  B = [b1;
-       b2]
-  K = [k1 k2]
-  T = A - B * K;
-  T = subs(T, a1, 1);
-  T = subs(T, a2, dt);
-  T = subs(T, a3, 0);
-  T = subs(T, a4, 1);
-  T = subs(T, b1, dt^2/2);
-  T = subs(T, b2, dt);
-end
-
-function [LL] = get_system_eigenvalues()
+function [LL, T] = get_system_eigenvalues()
   %% general second-order discrete-time state system
   syms a1 a2 a3 a4 b1 b2 k1 k2 dt
   A = [a1 a2;
@@ -94,6 +94,15 @@ function [LL] = get_system_eigenvalues()
   LL =  subs(LL, b1, dt^2/2);
   LL =  subs(LL, b2, dt);
   simplify(LL)
+
+  %% Specialize
+  T =  subs(T, a1, 1);
+  T =  subs(T, a2, dt);
+  T =  subs(T, a3, 0);
+  T =  subs(T, a4, 1);
+  T =  subs(T, b1, dt^2/2);
+  T =  subs(T, b2, dt);
+  simplify(T)
 end
 
 function plot_poles_gains(lambda1, lambda2, dt_s, k1, k2)
@@ -184,7 +193,7 @@ end
 % Prepare for plotting
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-LL = get_system_eigenvalues();
+[LL, T] = get_system_eigenvalues();
 
 %% Convert to function for plotting
 lambda1 = function_handle(LL(1))
@@ -210,6 +219,40 @@ global STABLE_REGION;
 STABLE_REGION = zeros(size(K1));
 STABLE_REGION(!abs_mask) = 0.5;
 STABLE_REGION(!arg_mask) = 1.0;
+
+################################################################################
+# critical damping
+################################################################################
+syms dt k1 k2 
+f1 = (LL(1) - LL(2) ) ^ 2
+f2 = (LL(1) + LL(2) ) / 2;
+
+## k1 in term of k2 when critical damping occurs
+## the solution is not unique, but only the first one give stable system
+k1_k2 = solve(f1 == 0, k1)
+
+## the eigen values in term of k2 when critical damping occurs
+lambda_k2 = subs(f2, k1, k1_k2)
+
+dt_s = 0.2;
+fun_lambda = @(k2) function_handle(lambda_k2)(dt_s, k2)
+fun_k1 = @(k2) function_handle(k1_k2)(dt_s, k2)
+
+k2 = 0:0.1:8;
+close all
+figure(1)
+subplot(2,1,1);
+plot(k2, fun_k1(k2)(1,:), "-r", "LineWidth", 3); hold on
+plot(k2, fun_k1(k2)(2,:), "-b", "LineWidth", 3); grid on
+title("Critical damping for dt = 0.2")
+xlabel("k_2")
+ylabel("k_1")
+subplot(2,1,2);
+plot(k2, fun_lambda(k2)(1,:), "-r", "LineWidth", 3); hold on
+plot(k2, fun_lambda(k2)(2,:), "-b", "LineWidth", 3); grid on
+xlabel("k_2")
+ylabel("\lambda")
+saveas(1, "critical_damping.png")
 
 ################################################################################
 ## plots
@@ -302,14 +345,19 @@ if !visualize
 end
 
 h = figure();
-dt_s = 0.1;
+dt_s = 0.2;
 k1s = 100;
 k2s = 0:0.5:21;
-plot_multiple_poles_gains(lambda1, lambda2, dt_s, k1s, k2s, visualize, 'dt01_k100_');
+plot_multiple_poles_gains(lambda1, lambda2, dt_s, k1s, k2s, visualize, 'dt02_k100_');
 
 k1s = 20;
 k2s = 0:0.5:21;
-plot_multiple_poles_gains(lambda1, lambda2, dt_s, k1s, k2s, visualize, 'dt01_k20_');
+plot_multiple_poles_gains(lambda1, lambda2, dt_s, k1s, k2s, visualize, 'dt02_k20_');
+
+k1s = 10;
+k2s = 0:0.5:21;
+plot_multiple_poles_gains(lambda1, lambda2, dt_s, k1s, k2s, visualize, 'dt02_k10_');
+
 
 %% Plot stable region changed with time
 disp("Plot stable region changed with dt");
@@ -319,3 +367,5 @@ for dt_s = 0.01:0.01:0.2
   print(sprintf("%s/stable_region_%05d.png", saving_foler, index));
   index = index + 1;
 end
+
+

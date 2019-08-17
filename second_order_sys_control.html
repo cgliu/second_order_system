@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-08-16 Fri 21:19 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Second-order System and Its Control</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Chenggang(Frank) Liu" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="./layout.css" />
+<style type="text/css">body{ max-width:80%; }</style>
+
+<script type="text/javascript" src="../js/org-info.js">
+/**
+ *
+ * @source: ../js/org-info.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in ../js/org-info.js.
+ *
+ * Copyright (C) 2012-2018 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in ../js/org-info.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "index.html");
+org_html_manager.set("LOCAL_TOC", "0");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "#dddddd");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "0");
+org_html_manager.set("VIEW", "showall");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href=""> HOME </a>
+</div><div id="content">
+<h1 class="title">Second-order System and Its Control</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org23e88c1">1. Goals</a></li>
+<li><a href="#orgb55a2bd">2. Continuous-time second order system and its control</a></li>
+<li><a href="#orgfe6c44b">3. Discrete-time second order system and its control</a></li>
+<li><a href="#org1be67db">4. Discrete-time second order system critical damping</a></li>
+<li><a href="#org315981d">5. Appendix 1</a></li>
+<li><a href="#org9b472ef">6. Appendix 2</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org23e88c1" class="outline-2">
+<h2 id="org23e88c1"><span class="section-number-2">1</span> Goals</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>Figure out the connection between a full-state feedback system dynamics and the mechanical system mechanics</li>
+<li>Figure out the connection between the feedback \(K\) and the time response</li>
+<li>Figure out the way to find the best \(K\)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb55a2bd" class="outline-2">
+<h2 id="orgb55a2bd"><span class="section-number-2">2</span> Continuous-time second order system and its control</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The continuous-time dynamics of interest is
+</p>
+\begin{eqnarray*}
+x_{next} &=&
+\begin{bmatrix}
+0 & 1 \\
+0 & 0
+\end{bmatrix}
+x +
+\begin{bmatrix}
+0 \\
+1
+\end{bmatrix} u
+\end{eqnarray*}
+
+<p>
+We are particularly interested in a full-state feedback controller, such as
+\[
+  u = - K x
+  \]
+</p>
+
+<p>
+where \(K := [k_1 \; k_2]\), \(k_1\) and \(k_2\) is the feedback control gains. Such control is often called PD control, where \(k_1\) is the P (Proportional)
+gain, and \(k_2\) is the D (Derivative) gain.
+</p>
+
+<p>
+Hereafter, we will study the closed-loop dynamics of such dynamics. It is interesting because we will find many
+systems in the real life have such dynamics, such as to control the position by controlling the acceleration,
+and etc.
+</p>
+
+<p>
+The closed-loop system dynamics is determined by the eigenvalues of the state transition matrix: \(T := A - B K\).
+\[
+  T = \left[\begin{matrix}0 & 1\\- k_{1} & - k_{2}\end{matrix}\right]
+  \]
+and its eigenvalues are (see Appendix 1):
+\[
+  \left[\begin{matrix}- \frac{k_{2}}{2} - \frac{\sqrt{- 4 k_{1} + k_{2}^{2}}}{2}\\- \frac{k_{2}}{2} + \frac{\sqrt{- 4 k_{1} + k_{2}^{2}}}{2}\end{matrix}\right]
+  \]
+</p>
+
+
+<div class="org-center">
+
+<div id="org19174e5" class="figure">
+<p><img src="second_order_mechanical_system.png" alt="second_order_mechanical_system.png" width="400px" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Second-order mechanical system</p>
+</div>
+</div>
+
+<p>
+Now let's look at a mass-spring-damper mechanics system as shown in Fig. <a href="#org19174e5">1</a>. it's poles are given by
+\[
+  \left[\begin{matrix}- \frac{b}{2m} - \frac{\sqrt{- 4 mk + b^{2}}}{2m}\\- \frac{b}{2m} + \frac{\sqrt{- 4 mk + b^{2}}}{2m}\end{matrix}\right]
+  \]
+</p>
+
+<p>
+Compared with these two equations, we will find that the closed-loop feedback system dynamics is equivalent to the
+mass-spring-damper system as shown in Fig. <a href="#org19174e5">1</a>, where \[ k = k_1 m \] \[ b = k_2 m \]
+</p>
+
+<p>
+The damping radio \(\xi\) and natural frequency \(\omega_n\) of the mechanical system are given by:
+\[ \omega_n = \sqrt{\frac{k}{m}}\]
+and
+\[ \xi = \frac{b}{2\sqrt{km}} \]
+</p>
+
+<p>
+Therefore, the damping radio \(\xi\) and natural frequency \(\omega_n\) in term of \(k_1\) and \(k_2\) are given by:
+\[ \omega_n = \sqrt{k_1} \]
+and
+\[ \xi = \frac{k_2}{2\sqrt{k_1}} \]
+</p>
+
+<p>
+This can explain why the higher the P gain, the faster it oscillates. The higher the D gain, the faster
+it decays.
+</p>
+
+<p>
+There are four classes of pole locations in term of the feedback gains <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>:
+</p>
+<ul class="org-ul">
+<li>First, if \(\xi= 0\), the system is undamped, it will oscillate at natural frequency.</li>
+<li>If \(0 < \xi < 1\), the system is underdamped.</li>
+<li>If \(\xi = 1\), the system is critically damped.</li>
+<li>Finally, \(\xi > 1\), the system is overdamped.</li>
+</ul>
+
+<p>
+For mass-spring-damper system, it is easy to prove that the magnitudes of eigenvalues are always negative. Therefore, it is always stable.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfe6c44b" class="outline-2">
+<h2 id="orgfe6c44b"><span class="section-number-2">3</span> Discrete-time second order system and its control</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The discrete time dynamics of interest is
+</p>
+\begin{eqnarray*}
+x_{next} &=&
+\begin{bmatrix}
+1 & dt \\
+0 & 1
+\end{bmatrix}
+x +
+\begin{bmatrix}
+\frac{1}{2} dt^2 \\
+dt
+\end{bmatrix} u \\
+u &=& - \begin{bmatrix}
+k_1 & k_2
+\end{bmatrix} x
+\end{eqnarray*}
+
+<p>
+The closed-loop system dynamics (aka Homogeneous DE) becomes (see Appendix 2 for octave code):
+\[
+  x_{next} = (A - B K) x
+  \]
+The system response is determined by the poles of \(A - B K\), which are:
+</p>
+\begin{equation}
+\lambda_1 = 1 - \frac{dt^{2} k_{1}}{4} - \frac{dt k_{2}}{2} - \frac{\sqrt{dt^{2} \left(dt^{2} k_{1}^{2} + 4 dt k_{1} k_{2} - 16 k_{1} + 4 k_{2}^{2}\right)}}{4}
+\end{equation}
+
+\begin{equation}
+\lambda_2 = 1 - \frac{dt^{2} k_{1}}{4} - \frac{dt k_{2}}{2} + \frac{\sqrt{dt^{2} \left(dt^{2} k_{1}^{2} + 4 dt k_{1} k_{2} - 16 k_{1} + 4 k_{2}^{2}\right)}}{4}
+\end{equation}
+
+<div class="org-center">
+
+<div id="org5b2d146" class="figure">
+<p><img src="const_norm_frequency_mapping.png" alt="const_norm_frequency_mapping.png" width="400px" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Mapping for constant normalized frequencies \(\omega_n T\)</p>
+</div>
+</div>
+
+<div class="org-center">
+
+<div id="orgfe1d9e2" class="figure">
+<p><img src="const_damping_mapping.png" alt="const_damping_mapping.png" width="400px" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Mapping for constant damping \(\xi\)</p>
+</div>
+</div>
+
+<div class="org-center">
+
+<div class="figure">
+<p><img src="z-plane-pole-response.png" alt="z-plane-pole-response.png" width="400px" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Pole in z-plane and its time response</p>
+</div>
+</div>
+<p>
+Refer to  <sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
+</p>
+
+<p>
+The stability of the closed-loop system is determined by the magnitudes of both eigenvalues.
+</p>
+<div class="org-center">
+
+<div class="figure">
+<p><img src="output/first_pole_abs.png" alt="first_pole_abs.png" width="400px" />
+</p>
+<p><span class="figure-number">Figure 5: </span>the first pole's magnitude when \(T=0.1\)</p>
+</div>
+</div>
+
+<div class="org-center">
+
+<div class="figure">
+<p><img src="output/second_pole_abs.png" alt="second_pole_abs.png" width="400px" />
+</p>
+<p><span class="figure-number">Figure 6: </span>the second pole's magnitude when \(T=0.1\)</p>
+</div>
+</div>
+
+<div class="org-center">
+
+<div class="figure">
+<p><img src="output/second_pole_arg.png" alt="second_pole_arg.png" width="400px" />
+</p>
+<p><span class="figure-number">Figure 7: </span>the second pole's \(\theta\) when \(T=0.1\)</p>
+</div>
+</div>
+
+<div class="org-center">
+
+<div class="figure">
+<p><img src="output/stable_region.png" alt="stable_region.png" width="400px" />
+</p>
+<p><span class="figure-number">Figure 8: </span>Black is unstable region, gray is stable w/ oscillate region, and white is stable w/o oscillation region when \(T=0.1\).</p>
+</div>
+</div>
+
+<div class="org-center">
+
+<div class="figure">
+<p><img src="output/stable_region_w_dt.gif" alt="stable_region_w_dt.gif" width="400px" />
+</p>
+<p><span class="figure-number">Figure 9: </span>Regions with different time step. Black is unstable region, gray is stable w/ oscillate region, and white is stable w/o oscillation region.</p>
+</div>
+</div>
+
+<div class="org-center">
+
+<div class="figure">
+<p><img src="output/gains_pose_response.gif" alt="gains_pose_response.gif" width="400px" />
+</p>
+<p><span class="figure-number">Figure 10: </span>Gains, poles and time response when \(T=0.1\)</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1be67db" class="outline-2">
+<h2 id="org1be67db"><span class="section-number-2">4</span> Discrete-time second order system critical damping</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Critical damping occurs when the two eigen values are equal, therefore,
+we need to solve 
+\[
+  \frac{dt^{2} k_{1}^{2}}{4} + dt k_{1} k_{2} - 4 k_{1} + k_{2}^{2} = 0
+  \]
+</p>
+
+<p>
+The solutions are 
+</p>
+\begin{equation}
+k_1 = \frac{- 2 dt k_{2} - 4 \sqrt{- 2 dt k_{2} + 4} + 8}{dt^{2}}
+\end{equation}
+<p>
+or
+</p>
+\begin{equation}
+k_1 = \frac{- 2 dt k_{2} + 4 \sqrt{- 2 dt k_{2} + 4} + 8}{dt^{2}}
+\end{equation}
+<p>
+and the corresponding eigenvalues are
+</p>
+\begin{equation}
+\lambda_1  = \lambda_2 = \sqrt{- 2 dt k_{2} + 4} - 1
+\end{equation}
+<p>
+and
+</p>
+\begin{equation}
+\lambda_1 = \lambda_2 = - \sqrt{- 2 dt k_{2} + 4} - 1
+\end{equation}
+
+
+<div id="org00ac3d9" class="figure">
+<p><img src="critical_damping.png" alt="critical_damping.png" width="800px" />
+</p>
+<p><span class="figure-number">Figure 11: </span>\(k_1\) and its corresponding eigenvalue as a function of \(k_2\) for \(dt=0.2\)</p>
+</div>
+
+<p>
+As we can see in Fig. <a href="#org00ac3d9">11</a>
+only one of these solutions gives a system that is stable and without oscillation,
+The stable eigenvalue is:
+</p>
+\begin{equation}
+\lambda_1 = \lambda_2 = \sqrt{- 2 dt k_{2} + 4} - 1
+\end{equation}
+
+<p>
+There is a special case, where both eigenvalues become zero. The corresponding gains are:
+\(k_1 = 1 / dt^2\) and \(k_2 = 3/(2dt)\) .
+</p>
+</div>
+</div>
+
+<div id="outline-container-org315981d" class="outline-2">
+<h2 id="org315981d"><span class="section-number-2">5</span> Appendix 1</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Octave code to calculate poles in s-plant
+</p>
+<div class="org-src-container">
+<pre class="src src-octave">pkg load symbolic
+syms a1 a2 a3 a4<span style="color: #ff8700;">;</span> A <span style="color: #ff8700;">=</span> [a1<span style="color: #ff8700;">,</span> a2<span style="color: #ff8700;">;</span> a3 a4]
+syms b1 b2<span style="color: #ff8700;">;</span> B <span style="color: #ff8700;">=</span> [b1<span style="color: #ff8700;">;</span>b2]
+syms k1 k2<span style="color: #ff8700;">;</span> K <span style="color: #ff8700;">=</span> [k1 k2]
+T <span style="color: #ff8700;">=</span> [A<span style="color: #ff8700;">-</span>B<span style="color: #ff8700;">*</span>K]
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a1<span style="color: #ff8700;">,</span> 0)
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a2<span style="color: #ff8700;">,</span> 1)
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a3<span style="color: #ff8700;">,</span> 0)
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a4<span style="color: #ff8700;">,</span> 0)
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> b1<span style="color: #ff8700;">,</span> 0)
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> b2<span style="color: #ff8700;">,</span> 1)
+eig(T)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9b472ef" class="outline-2">
+<h2 id="org9b472ef"><span class="section-number-2">6</span> Appendix 2</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Octave code to calculate poles in s-plant
+</p>
+<div class="org-src-container">
+<pre class="src src-octave">pkg load symbolic<span style="color: #ff8700;">;</span>
+syms a1 a2 a3 a4 b1 b2 k1 k2 dt
+A <span style="color: #ff8700;">=</span> [a1 a2<span style="color: #ff8700;">;</span>
+     a3 a4]
+B <span style="color: #ff8700;">=</span> [b1<span style="color: #ff8700;">;</span>
+     b2]
+K <span style="color: #ff8700;">=</span> [k1 k2]
+T <span style="color: #ff8700;">=</span> A <span style="color: #ff8700;">-</span> B <span style="color: #ff8700;">*</span> K<span style="color: #ff8700;">;</span>
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a1<span style="color: #ff8700;">,</span> 1)
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a2<span style="color: #ff8700;">,</span> dt)
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a3<span style="color: #ff8700;">,</span> 0)
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a4<span style="color: #ff8700;">,</span> 1)
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> b1<span style="color: #ff8700;">,</span> dt<span style="color: #ff8700;">^</span>2<span style="color: #ff8700;">/</span>2)
+T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> b2<span style="color: #ff8700;">,</span> dt)
+
+simplify(eig(T))
+</pre>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://ocw.mit.edu/courses/mechanical-engineering/2-003-modeling-dynamics-and-control-i-spring-2005/readings/notesinstalment2.pdf">https://ocw.mit.edu/courses/mechanical-engineering/2-003-modeling-dynamics-and-control-i-spring-2005/readings/notesinstalment2.pdf</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+Discrete Systems <a href="https://fenix.tecnico.ulisboa.pt/downloadFile/3779580204929/Control_Mark%20Cannon.pdf">https://fenix.tecnico.ulisboa.pt/downloadFile/3779580204929/Control_Mark Cannon.pdf</a>
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="author">Author: Chenggang(Frank) Liu</p>
+<p class="date">Created: 2019-08-16 Fri 21:19</p>
+<p class="validation"></p>
+</div>
+</body>
+</html>
