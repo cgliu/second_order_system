@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-08-16 Fri 21:19 -->
+<!-- 2019-11-24 Sun 20:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Second-order System and Its Control</title>
@@ -334,18 +334,17 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org23e88c1">1. Goals</a></li>
-<li><a href="#orgb55a2bd">2. Continuous-time second order system and its control</a></li>
-<li><a href="#orgfe6c44b">3. Discrete-time second order system and its control</a></li>
-<li><a href="#org1be67db">4. Discrete-time second order system critical damping</a></li>
-<li><a href="#org315981d">5. Appendix 1</a></li>
-<li><a href="#org9b472ef">6. Appendix 2</a></li>
+<li><a href="#org8994736">1. Goals</a></li>
+<li><a href="#orga81fd1a">2. Continuous-time second order system and its control</a></li>
+<li><a href="#orgbde1845">3. Discrete-time second order system and its control</a></li>
+<li><a href="#org649bf8c">4. Discrete-time second order system critical damping</a></li>
+<li><a href="#org7fc44eb">5. Appendix 1</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org23e88c1" class="outline-2">
-<h2 id="org23e88c1"><span class="section-number-2">1</span> Goals</h2>
+<div id="outline-container-org8994736" class="outline-2">
+<h2 id="org8994736"><span class="section-number-2">1</span> Goals</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
 <li>Figure out the connection between a full-state feedback system dynamics and the mechanical system mechanics</li>
@@ -355,8 +354,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgb55a2bd" class="outline-2">
-<h2 id="orgb55a2bd"><span class="section-number-2">2</span> Continuous-time second order system and its control</h2>
+<div id="outline-container-orga81fd1a" class="outline-2">
+<h2 id="orga81fd1a"><span class="section-number-2">2</span> Continuous-time second order system and its control</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 The continuous-time dynamics of interest is
@@ -406,7 +405,7 @@ and its eigenvalues are (see Appendix 1):
 
 <div class="org-center">
 
-<div id="org19174e5" class="figure">
+<div id="org43ef4b7" class="figure">
 <p><img src="second_order_mechanical_system.png" alt="second_order_mechanical_system.png" width="400px" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Second-order mechanical system</p>
@@ -414,7 +413,7 @@ and its eigenvalues are (see Appendix 1):
 </div>
 
 <p>
-Now let's look at a mass-spring-damper mechanics system as shown in Fig. <a href="#org19174e5">1</a>. it's poles are given by
+Now let's look at a mass-spring-damper mechanics system as shown in Fig. <a href="#org43ef4b7">1</a>. it's poles are given by
 \[
   \left[\begin{matrix}- \frac{b}{2m} - \frac{\sqrt{- 4 mk + b^{2}}}{2m}\\- \frac{b}{2m} + \frac{\sqrt{- 4 mk + b^{2}}}{2m}\end{matrix}\right]
   \]
@@ -422,7 +421,7 @@ Now let's look at a mass-spring-damper mechanics system as shown in Fig. <a href
 
 <p>
 Compared with these two equations, we will find that the closed-loop feedback system dynamics is equivalent to the
-mass-spring-damper system as shown in Fig. <a href="#org19174e5">1</a>, where \[ k = k_1 m \] \[ b = k_2 m \]
+mass-spring-damper system as shown in Fig. <a href="#org43ef4b7">1</a>, where \[ k = k_1 m \] \[ b = k_2 m \]
 </p>
 
 <p>
@@ -460,8 +459,8 @@ For mass-spring-damper system, it is easy to prove that the magnitudes of eigenv
 </div>
 </div>
 
-<div id="outline-container-orgfe6c44b" class="outline-2">
-<h2 id="orgfe6c44b"><span class="section-number-2">3</span> Discrete-time second order system and its control</h2>
+<div id="outline-container-orgbde1845" class="outline-2">
+<h2 id="orgbde1845"><span class="section-number-2">3</span> Discrete-time second order system and its control</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 The discrete time dynamics of interest is
@@ -499,7 +498,7 @@ The system response is determined by the poles of \(A - B K\), which are:
 
 <div class="org-center">
 
-<div id="org5b2d146" class="figure">
+<div id="orgdbfc519" class="figure">
 <p><img src="const_norm_frequency_mapping.png" alt="const_norm_frequency_mapping.png" width="400px" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Mapping for constant normalized frequencies \(\omega_n T\)</p>
@@ -508,7 +507,7 @@ The system response is determined by the poles of \(A - B K\), which are:
 
 <div class="org-center">
 
-<div id="orgfe1d9e2" class="figure">
+<div id="org341f4d5" class="figure">
 <p><img src="const_damping_mapping.png" alt="const_damping_mapping.png" width="400px" />
 </p>
 <p><span class="figure-number">Figure 3: </span>Mapping for constant damping \(\xi\)</p>
@@ -586,8 +585,8 @@ The stability of the closed-loop system is determined by the magnitudes of both 
 </div>
 </div>
 
-<div id="outline-container-org1be67db" class="outline-2">
-<h2 id="org1be67db"><span class="section-number-2">4</span> Discrete-time second order system critical damping</h2>
+<div id="outline-container-org649bf8c" class="outline-2">
+<h2 id="org649bf8c"><span class="section-number-2">4</span> Discrete-time second order system critical damping</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Critical damping occurs when the two eigen values are equal, therefore,
@@ -623,14 +622,14 @@ and
 \end{equation}
 
 
-<div id="org00ac3d9" class="figure">
+<div id="orga245555" class="figure">
 <p><img src="critical_damping.png" alt="critical_damping.png" width="800px" />
 </p>
 <p><span class="figure-number">Figure 11: </span>\(k_1\) and its corresponding eigenvalue as a function of \(k_2\) for \(dt=0.2\)</p>
 </div>
 
 <p>
-As we can see in Fig. <a href="#org00ac3d9">11</a>
+As we can see in Fig. <a href="#orga245555">11</a>
 only one of these solutions gives a system that is stable and without oscillation,
 The stable eigenvalue is:
 </p>
@@ -645,52 +644,372 @@ There is a special case, where both eigenvalues become zero. The corresponding g
 </div>
 </div>
 
-<div id="outline-container-org315981d" class="outline-2">
-<h2 id="org315981d"><span class="section-number-2">5</span> Appendix 1</h2>
+<div id="outline-container-org7fc44eb" class="outline-2">
+<h2 id="org7fc44eb"><span class="section-number-2">5</span> Appendix 1</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-Octave code to calculate poles in s-plant
+Octave code to calculate continuous-time system's poles in s-plant
 </p>
 <div class="org-src-container">
-<pre class="src src-octave">pkg load symbolic
-syms a1 a2 a3 a4<span style="color: #ff8700;">;</span> A <span style="color: #ff8700;">=</span> [a1<span style="color: #ff8700;">,</span> a2<span style="color: #ff8700;">;</span> a3 a4]
-syms b1 b2<span style="color: #ff8700;">;</span> B <span style="color: #ff8700;">=</span> [b1<span style="color: #ff8700;">;</span>b2]
-syms k1 k2<span style="color: #ff8700;">;</span> K <span style="color: #ff8700;">=</span> [k1 k2]
-T <span style="color: #ff8700;">=</span> [A<span style="color: #ff8700;">-</span>B<span style="color: #ff8700;">*</span>K]
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a1<span style="color: #ff8700;">,</span> 0)
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a2<span style="color: #ff8700;">,</span> 1)
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a3<span style="color: #ff8700;">,</span> 0)
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a4<span style="color: #ff8700;">,</span> 0)
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> b1<span style="color: #ff8700;">,</span> 0)
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> b2<span style="color: #ff8700;">,</span> 1)
-eig(T)
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-org9b472ef" class="outline-2">
-<h2 id="org9b472ef"><span class="section-number-2">6</span> Appendix 2</h2>
-<div class="outline-text-2" id="text-6">
-<p>
-Octave code to calculate poles in s-plant
-</p>
-<div class="org-src-container">
-<pre class="src src-octave">pkg load symbolic<span style="color: #ff8700;">;</span>
-syms a1 a2 a3 a4 b1 b2 k1 k2 dt
-A <span style="color: #ff8700;">=</span> [a1 a2<span style="color: #ff8700;">;</span>
-     a3 a4]
-B <span style="color: #ff8700;">=</span> [b1<span style="color: #ff8700;">;</span>
-     b2]
-K <span style="color: #ff8700;">=</span> [k1 k2]
-T <span style="color: #ff8700;">=</span> A <span style="color: #ff8700;">-</span> B <span style="color: #ff8700;">*</span> K<span style="color: #ff8700;">;</span>
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a1<span style="color: #ff8700;">,</span> 1)
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a2<span style="color: #ff8700;">,</span> dt)
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a3<span style="color: #ff8700;">,</span> 0)
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> a4<span style="color: #ff8700;">,</span> 1)
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> b1<span style="color: #ff8700;">,</span> dt<span style="color: #ff8700;">^</span>2<span style="color: #ff8700;">/</span>2)
-T <span style="color: #ff8700;">=</span> subs(T<span style="color: #ff8700;">,</span> b2<span style="color: #ff8700;">,</span> dt)
+<pre class="src src-octave"><span style="color: #767676;">%% </span><span style="color: #767676;">Dependencies:</span>
+<span style="color: #767676;">%%             </span><span style="color: #767676;">Octave 4.0.0</span>
+<span style="color: #767676;">%%</span>
+<span style="color: #767676;">%%             </span><span style="color: #767676;">Package Name  | Version</span>
+<span style="color: #767676;">%%             </span><span style="color: #767676;">--------------+---------</span>
+<span style="color: #767676;">%%                 </span><span style="color: #767676;">geometry  |   2.1.1</span>
+<span style="color: #767676;">%%                 </span><span style="color: #767676;">symbolic  |   2.7.1</span>
 
-simplify(eig(T))
+<span style="color: #d75f5f;">clear</span> all
+<span style="color: #767676;">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span style="color: #767676;">% </span><span style="color: #767676;">Load  packages</span>
+<span style="color: #767676;">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+pkg <span style="color: #d75f5f;">load</span> symbolic;
+pkg <span style="color: #d75f5f;">load</span> geometry;
+
+<span style="color: #767676;">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span style="color: #767676;">% </span><span style="color: #767676;">Constant variables</span>
+<span style="color: #767676;">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span style="color: #d75f5f;">global</span> saving_foler visualize
+visualize = false;
+saving_foler = '/tmp/output'; <span style="color: #767676;">%% </span><span style="color: #767676;">don't change this</span>
+mkdir(<span style="color: #afaf00;">"/tmp"</span>, <span style="color: #afaf00;">"output"</span>);
+
+<span style="color: #767676;">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span style="color: #767676;">% </span><span style="color: #767676;">Utility functions</span>
+<span style="color: #767676;">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+<span style="color: #d75f5f;">function</span> x_new = <span style="color: #ffaf00;">dynamics</span>(x, u, dt_s)
+  A = [1 dt_s;
+       0 1];
+  B = [0.5 * dt_s^2;
+       dt_s];
+  x_new = A * x + B * u;
+<span style="color: #d75f5f;">end</span>
+
+<span style="color: #d75f5f;">function</span> u = <span style="color: #ffaf00;">PD_controller</span>(x, K)
+  u = - K * [x(1) x(2)]';
+<span style="color: #d75f5f;">end</span>
+
+<span style="color: #d75f5f;">function</span> traj = <span style="color: #ffaf00;">sim_tvc</span>(x0, controller, duration, dt_s)
+  <span style="color: #767676;">%% </span><span style="color: #767676;">time varying controller</span>
+  time = 0;
+  x = x0;
+  traj = [];
+  time_step = 0;
+  <span style="color: #d75f5f;">while</span> time <span style="color: #ff8700;">&lt;</span> duration
+    u = controller(x, time_step);
+    traj = [traj; time x' u'];
+    x = dynamics(x, u, dt_s);
+
+    time = time + dt_s;
+    time_step += 1;
+  <span style="color: #d75f5f;">end</span>
+<span style="color: #d75f5f;">end</span>
+
+<span style="color: #d75f5f;">function</span> traj = <span style="color: #ffaf00;">sim</span>(x0, controller, duration, dt_s)
+  time = 0;
+  x = x0;
+  traj = [];
+  <span style="color: #d75f5f;">while</span> time <span style="color: #ff8700;">&lt;</span> duration
+    u = controller(x);
+    traj = [traj; time x' u'];
+    x = dynamics(x, u, dt_s);
+
+    time = time + dt_s;
+  <span style="color: #d75f5f;">end</span>
+<span style="color: #d75f5f;">end</span>
+
+<span style="color: #d75f5f;">function</span> <span style="color: #ffaf00;">show_traj</span>(traj)
+  plot(traj(:,1), traj(:,2:<span style="color: #d75f5f;">end</span>), <span style="color: #afaf00;">"LineWidth"</span>, 3);
+  legend('position', 'speed', 'u')
+  xlim([0 10]);
+  xlabel(<span style="color: #afaf00;">"Time [s]"</span>)
+  ylabel(<span style="color: #afaf00;">"States"</span>);
+  title(<span style="color: #afaf00;">"Time response"</span>);
+<span style="color: #d75f5f;">end</span>
+
+<span style="color: #d75f5f;">function</span> [LL, T] = <span style="color: #ffaf00;">get_system_eigenvalues</span>()
+  <span style="color: #767676;">%% </span><span style="color: #767676;">general second-order discrete-time state system</span>
+  syms a1 a2 a3 a4 b1 b2 k1 k2 dt
+  A = [a1 a2;
+       a3 a4]
+  B = [b1;
+       b2]
+  K = [k1 k2]
+  T = A - B * K;
+  LL =  eig(A - B*K);
+
+  <span style="color: #767676;">%% </span><span style="color: #767676;">Specialize</span>
+  LL= simplify(subs(LL, {a1, a2, a3, a4, b1, b2}, {1, dt, 0, 1, dt^2/2, dt}));
+
+  <span style="color: #767676;">%% </span><span style="color: #767676;">Specialize</span>
+  T= simplify(subs(T, {a1, a2, a3, a4, b1, b2}, {1, dt, 0, 1, dt^2/2, dt}));
+<span style="color: #d75f5f;">end</span>
+
+<span style="color: #d75f5f;">function</span> <span style="color: #ffaf00;">plot_poles_gains</span>(lambda1, lambda2, dt_s, k1, k2)
+  <span style="color: #767676;">%% </span><span style="color: #767676;">Function to plot system pole for a given dt_x, k1, and k2</span>
+  <span style="color: #767676;">%% </span><span style="color: #767676;">@params : lambda1 and lambda2 are functions of dt_s, k1, k2</span>
+
+  <span style="color: #d75f5f;">global</span> K1 K2 STABLE_REGION
+  clf
+  p1 = lambda1(dt_s, k1, k2);
+  p2 = lambda2(dt_s, k1, k2);
+
+  subplot(2,2,1);
+  <span style="color: #d75f5f;">if</span> size(STABLE_REGION, 1) <span style="color: #ff8700;">&gt;</span> 0
+    h = pcolor(K1, K2, STABLE_REGION); set(h, 'EdgeColor', 'none'); colormap('gray');
+    <span style="color: #d75f5f;">hold</span> on;
+  <span style="color: #d75f5f;">end</span>
+  plot(k1, k2, <span style="color: #afaf00;">"*"</span>, <span style="color: #afaf00;">"LineWidth"</span>, 3);
+  xlabel(<span style="color: #afaf00;">"k1"</span>); ylabel(<span style="color: #afaf00;">"k2"</span>); xlim([0 120]); ylim([0 25]); title(<span style="color: #afaf00;">"K selection"</span>);
+
+  subplot(2,2,2);
+  drawCircle(0,0,1.0);
+  <span style="color: #d75f5f;">hold</span> on
+  plot(real(p1), imag(p1), <span style="color: #afaf00;">"*"</span>, <span style="color: #afaf00;">"LineWidth"</span>, 3,
+       real(p2), imag(p2), <span style="color: #afaf00;">"*"</span>, <span style="color: #afaf00;">"LineWidth"</span>, 3);
+  grid on; axis equal
+  xlim([-2 2]); ylim([-2 2]); title(sprintf(<span style="color: #afaf00;">"Poles at k1 = %.1f  k2= %.1f"</span>, k1, k2))
+
+  <span style="color: #767676;">%% </span><span style="color: #767676;">Time response</span>
+  x0 = [1 0]';
+  controller = @(x) PD_controller(x, [k1 k2]);
+  traj = sim(x0, controller, 10.0, dt_s);
+
+  subplot(2,2,3:4); show_traj(traj);
+<span style="color: #d75f5f;">end</span>
+
+<span style="color: #d75f5f;">function</span> plot_multiple_poles_gains(lambda1, lambda2, dt_s, k1_list, k2_list, visualize = <span style="color: #ffaf00;">true</span>, prefix='')
+  <span style="color: #767676;">%% </span><span style="color: #767676;">lambda1 and lambda2 are functions of k1, k2, where K = [k1 k2]</span>
+  <span style="color: #d75f5f;">global</span> saving_foler
+
+  idx = 0;
+  <span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+    h = gcf();
+    set(h, 'visible','off')
+  <span style="color: #d75f5f;">end</span>
+
+  <span style="color: #d75f5f;">for</span> k1 = k1_list
+    <span style="color: #d75f5f;">for</span> k2 = k2_list
+      plot_poles_gains(lambda1, lambda2, dt_s, k1, k2);
+      <span style="color: #d75f5f;">if</span> visualize
+        refresh() <span style="color: #767676;">%% </span><span style="color: #767676;">drawnow()</span>
+        pause(0.2)
+      <span style="color: #d75f5f;">else</span>
+        filename = sprintf(<span style="color: #afaf00;">"%s/%s%05d.png"</span>, saving_foler, prefix, idx);
+        print(filename)
+      <span style="color: #d75f5f;">end</span>
+
+      idx = idx + 1;
+    <span style="color: #d75f5f;">end</span>
+  <span style="color: #d75f5f;">end</span>
+<span style="color: #d75f5f;">end</span>
+
+<span style="color: #d75f5f;">function</span> <span style="color: #ffaf00;">plot_stable_region</span>(lambda1, lambda2, dt_s, visualize)
+  nk1 = 0:0.5:120;
+  nk2 = 0:0.1:25;
+  [K1, K2] = meshgrid(nk1,nk2);
+  L1 = lambda1(dt_s, K1, K2);
+  L2 = lambda2(dt_s, K1, K2);
+
+  <span style="color: #767676;">%% </span><span style="color: #767676;">unstable region mask</span>
+  abs_mask = abs(L1) <span style="color: #ff8700;">&gt;</span> 1 <span style="color: #ff8700;">|</span> abs(L2) <span style="color: #ff8700;">&gt;</span> 1.0;
+  <span style="color: #767676;">%% </span><span style="color: #767676;">underdamping region mask</span>
+  arg_mask = abs(arg(L1)) <span style="color: #ff8700;">&gt;</span> 0 <span style="color: #ff8700;">|</span> abs(arg(L2)) <span style="color: #ff8700;">&gt;</span> 0;
+
+  STABLE_REGION = zeros(size(K1));
+  STABLE_REGION(<span style="color: #ff8700;">!</span>abs_mask) = 0.5;
+  STABLE_REGION(<span style="color: #ff8700;">!</span>arg_mask) = 1.0;
+
+  <span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+    h = gcf();
+    set(h, 'visible','off')
+  <span style="color: #d75f5f;">end</span>
+  clf
+  h = pcolor(K1, K2, STABLE_REGION); set(h, 'EdgeColor', 'none'); colormap('gray');
+  xlabel(<span style="color: #afaf00;">"k1"</span>); ylabel(<span style="color: #afaf00;">"k2"</span>); title(sprintf(<span style="color: #afaf00;">"Stable and underdamped region when dt = %0.3f"</span>, dt_s));
+<span style="color: #d75f5f;">end</span>
+
+<span style="color: #767676;">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span style="color: #767676;">% </span><span style="color: #767676;">Prepare for plotting</span>
+<span style="color: #767676;">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+
+[LL, T] = get_system_eigenvalues();
+
+<span style="color: #767676;">%% </span><span style="color: #767676;">Convert to function for plotting</span>
+lambda1 = function_handle(LL(1))
+lambda2 = function_handle(LL(2))
+
+<span style="color: #767676;">%% </span><span style="color: #767676;">variables for plotting</span>
+dt_s = 0.2;
+nk1 = 0:0.5:120;
+nk2 = 0:0.1:25;
+
+<span style="color: #d75f5f;">global</span> K1
+<span style="color: #d75f5f;">global</span> K2
+[K1, K2] = meshgrid(nk1,nk2);
+L1 = lambda1(dt_s, K1, K2);
+L2 = lambda2(dt_s, K1, K2);
+
+<span style="color: #767676;">%% </span><span style="color: #767676;">unstable region mask</span>
+abs_mask = abs(L1) <span style="color: #ff8700;">&gt;</span> 1 <span style="color: #ff8700;">|</span> abs(L2) <span style="color: #ff8700;">&gt;</span> 1.0;
+<span style="color: #767676;">%% </span><span style="color: #767676;">underdamping region mask</span>
+arg_mask = abs(arg(L1)) <span style="color: #ff8700;">&gt;</span> 0 <span style="color: #ff8700;">|</span> abs(arg(L2)) <span style="color: #ff8700;">&gt;</span> 0;
+
+<span style="color: #d75f5f;">global</span> STABLE_REGION;
+STABLE_REGION = zeros(size(K1));
+STABLE_REGION(<span style="color: #ff8700;">!</span>abs_mask) = 0.5;
+STABLE_REGION(<span style="color: #ff8700;">!</span>arg_mask) = 1.0;
+
+<span style="color: #767676;">################################################################################</span>
+<span style="color: #767676;"># </span><span style="color: #767676;">critical damping</span>
+<span style="color: #767676;">################################################################################</span>
+syms dt k1 k2 
+f1 = (LL(1) - LL(2) ) ^ 2
+f2 = (LL(1) + LL(2) ) / 2;
+
+<span style="color: #767676;">## </span><span style="color: #767676;">k1 in term of k2 when critical damping occurs</span>
+<span style="color: #767676;">## </span><span style="color: #767676;">the solution is not unique, but only the first one give stable system</span>
+k1_k2 = solve(f1 <span style="color: #ff8700;">==</span> 0, k1)
+
+<span style="color: #767676;">## </span><span style="color: #767676;">the eigen values in term of k2 when critical damping occurs</span>
+lambda_k2 = subs(f2, k1, k1_k2)
+
+dt_s = 0.2;
+fun_lambda = @(k2) function_handle(lambda_k2)(dt_s, k2)
+fun_k1 = @(k2) function_handle(k1_k2)(dt_s, k2)
+
+k2 = 0:0.1:8;
+close all
+figure(1)
+subplot(2,1,1);
+plot(k2, fun_k1(k2)(1,:), <span style="color: #afaf00;">"-r"</span>, <span style="color: #afaf00;">"LineWidth"</span>, 3); <span style="color: #d75f5f;">hold</span> on
+plot(k2, fun_k1(k2)(2,:), <span style="color: #afaf00;">"-b"</span>, <span style="color: #afaf00;">"LineWidth"</span>, 3); grid on
+title(<span style="color: #afaf00;">"Critical damping for dt = 0.2"</span>)
+xlabel(<span style="color: #afaf00;">"k_2"</span>)
+ylabel(<span style="color: #afaf00;">"k_1"</span>)
+subplot(2,1,2);
+plot(k2, fun_lambda(k2)(1,:), <span style="color: #afaf00;">"-r"</span>, <span style="color: #afaf00;">"LineWidth"</span>, 3); <span style="color: #d75f5f;">hold</span> on
+plot(k2, fun_lambda(k2)(2,:), <span style="color: #afaf00;">"-b"</span>, <span style="color: #afaf00;">"LineWidth"</span>, 3); grid on
+xlabel(<span style="color: #afaf00;">"k_2"</span>)
+ylabel(<span style="color: #afaf00;">"\lambda"</span>)
+saveas(1, <span style="color: #afaf00;">"critical_damping.png"</span>)
+
+<span style="color: #767676;">################################################################################</span>
+<span style="color: #767676;">## </span><span style="color: #767676;">plots</span>
+<span style="color: #767676;">################################################################################</span>
+
+h = figure();
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  set(h, 'visible','off')
+<span style="color: #d75f5f;">end</span>
+clf
+[c h] = contourf(K1, K2, abs(L1), 0:0.2:2); colorbar();
+clabel (c, h, 0:0.2:2, <span style="color: #afaf00;">"fontsize"</span>, 12);
+xlabel(<span style="color: #afaf00;">"k1"</span>); ylabel(<span style="color: #afaf00;">"k2"</span>); title(<span style="color: #afaf00;">"The first pose's magnitude"</span>);
+grid on
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  print(sprintf(<span style="color: #afaf00;">"%s/first_pole_abs.png"</span>, saving_foler));
+<span style="color: #d75f5f;">end</span>
+
+h = figure();
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  set(h, 'visible','off')
+<span style="color: #d75f5f;">end</span>
+clf
+[c h] = contourf(K1, K2, abs(L2), 0:0.2:2); colorbar();
+clabel (c, h, 0:0.2:2, <span style="color: #afaf00;">"fontsize"</span>, 12);
+xlabel(<span style="color: #afaf00;">"k1"</span>); ylabel(<span style="color: #afaf00;">"k2"</span>); title(<span style="color: #afaf00;">"The second pose's magnitude"</span>);
+grid on
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  print(sprintf(<span style="color: #afaf00;">"%s/second_pole_abs.png"</span>, saving_foler));
+<span style="color: #d75f5f;">end</span>
+
+h = figure();
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  set(h, 'visible','off')
+<span style="color: #d75f5f;">end</span>
+clf
+[c, h] =  contourf(K1, K2, arg(L2));
+colorbar(); xlabel(<span style="color: #afaf00;">"k1"</span>); ylabel(<span style="color: #afaf00;">"k2"</span>);
+title(<span style="color: #afaf00;">"The second pose's angle"</span>);
+grid on;
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  print(sprintf(<span style="color: #afaf00;">"%s/second_pole_arg.png"</span>, saving_foler));
+<span style="color: #d75f5f;">end</span>
+
+<span style="color: #767676;">%% </span><span style="color: #767676;">Stable region</span>
+h = figure();
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  set(h, 'visible','off')
+<span style="color: #d75f5f;">end</span>
+clf
+A1 = abs(L1);
+A1(abs_mask) = 3;
+h = pcolor(K1, K2, A1); set(h, 'EdgeColor', 'none'); colorbar();
+xlabel(<span style="color: #afaf00;">"k1"</span>); ylabel(<span style="color: #afaf00;">"k2"</span>); title(<span style="color: #afaf00;">"Stable region abs(Lambda_1)"</span>);
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  print(sprintf(<span style="color: #afaf00;">"%s/stable_region_first_pole_abs.png"</span>, saving_foler));
+<span style="color: #d75f5f;">end</span>
+
+h = figure();
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  set(h, 'visible','off')
+<span style="color: #d75f5f;">end</span>
+clf
+A1 = abs(L2);
+A1(abs_mask) = 3;
+h = pcolor(K1, K2, A1); set(h, 'EdgeColor', 'none'); colorbar();
+xlabel(<span style="color: #afaf00;">"k1"</span>); ylabel(<span style="color: #afaf00;">"k2"</span>); title(<span style="color: #afaf00;">"Stable region abs(Lambda_2)"</span>);
+grid on
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  print(sprintf(<span style="color: #afaf00;">"%s/stable_region_second_pole_abs.png"</span>, saving_foler));
+<span style="color: #d75f5f;">end</span>
+
+h = figure();
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  set(h, 'visible','off')
+<span style="color: #d75f5f;">end</span>
+clf
+A1 = arg(L2);
+A1(abs_mask) = <span style="color: #87afaf;">pi</span>;
+h = pcolor(K1, K2, A1); set(h, 'EdgeColor', 'none'); colorbar();
+xlabel(<span style="color: #afaf00;">"k1"</span>); ylabel(<span style="color: #afaf00;">"k2"</span>); title(<span style="color: #afaf00;">"Stable region arg(Lambda_2)"</span>);
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  print(sprintf(<span style="color: #afaf00;">"%s/stable_region_second_pole_arg.png"</span>, saving_foler));
+<span style="color: #d75f5f;">end</span>
+
+h = figure();
+plot_stable_region(lambda1, lambda2, dt_s, visualize);
+<span style="color: #d75f5f;">if</span> <span style="color: #ff8700;">!</span>visualize
+  print(sprintf(<span style="color: #afaf00;">"%s/stable_region.png"</span>, saving_foler));
+<span style="color: #d75f5f;">end</span>
+
+h = figure();
+dt_s = 0.2;
+k1s = 100;
+k2s = 0:0.5:21;
+plot_multiple_poles_gains(lambda1, lambda2, dt_s, k1s, k2s, visualize, 'dt02_k100_');
+
+k1s = 20;
+k2s = 0:0.5:21;
+plot_multiple_poles_gains(lambda1, lambda2, dt_s, k1s, k2s, visualize, 'dt02_k20_');
+
+k1s = 10;
+k2s = 0:0.5:21;
+plot_multiple_poles_gains(lambda1, lambda2, dt_s, k1s, k2s, visualize, 'dt02_k10_');
+
+
+<span style="color: #767676;">%% </span><span style="color: #767676;">Plot stable region changed with time</span>
+disp(<span style="color: #afaf00;">"Plot stable region changed with dt"</span>);
+index = 0;
+<span style="color: #d75f5f;">for</span> dt_s = 0.01:0.01:0.2
+  plot_stable_region(lambda1, lambda2, dt_s, false);
+  print(sprintf(<span style="color: #afaf00;">"%s/stable_region_%05d.png"</span>, saving_foler, index));
+  index = index + 1;
+<span style="color: #d75f5f;">end</span>
+
+
 </pre>
 </div>
 </div>
@@ -712,7 +1031,7 @@ Discrete Systems <a href="https://fenix.tecnico.ulisboa.pt/downloadFile/37795802
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Chenggang(Frank) Liu</p>
-<p class="date">Created: 2019-08-16 Fri 21:19</p>
+<p class="date">Created: 2019-11-24 Sun 20:21</p>
 <p class="validation"></p>
 </div>
 </body>

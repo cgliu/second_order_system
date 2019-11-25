@@ -87,22 +87,10 @@ function [LL, T] = get_system_eigenvalues()
   LL =  eig(A - B*K);
 
   %% Specialize
-  LL =  subs(LL, a1, 1);
-  LL =  subs(LL, a2, dt);
-  LL =  subs(LL, a3, 0);
-  LL =  subs(LL, a4, 1);
-  LL =  subs(LL, b1, dt^2/2);
-  LL =  subs(LL, b2, dt);
-  simplify(LL)
+  LL= simplify(subs(LL, {a1, a2, a3, a4, b1, b2}, {1, dt, 0, 1, dt^2/2, dt}));
 
   %% Specialize
-  T =  subs(T, a1, 1);
-  T =  subs(T, a2, dt);
-  T =  subs(T, a3, 0);
-  T =  subs(T, a4, 1);
-  T =  subs(T, b1, dt^2/2);
-  T =  subs(T, b2, dt);
-  simplify(T)
+  T= simplify(subs(T, {a1, a2, a3, a4, b1, b2}, {1, dt, 0, 1, dt^2/2, dt}));
 end
 
 function plot_poles_gains(lambda1, lambda2, dt_s, k1, k2)

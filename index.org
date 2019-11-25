@@ -10,14 +10,13 @@
 #+HTML_LINK_UP: index.html
 
 * Goals
-  I want to answer the following questions for a second-order system:
-  - What's the connection between a full-state feedback system dynamics and the mechanical system mechanics.
-  - What's the connection between the feedback gain $K$ and its time response.
+  - Figure out the connection between a full-state feedback system dynamics and the mechanical system mechanics
+  - Figure out the connection between the feedback $K$ and the time response
+  - Figure out the way to find the best $K$
 
-* Continuous-time Second Order System and Its Control
+* Continuous-time second order system and its control
   The continuous-time dynamics of interest is
-  \begin{eqnarray}
-  \label{eq:ct-2d-dynamics}
+  \begin{eqnarray*}
   x_{next} &=&
   \begin{bmatrix}
   0 & 1 \\
@@ -28,18 +27,19 @@
   0 \\
   1
   \end{bmatrix} u
-  \end{eqnarray}
+  \end{eqnarray*}
 
   We are particularly interested in a full-state feedback controller, such as
   \[
   u = - K x
   \]
+
   where $K := [k_1 \; k_2]$, $k_1$ and $k_2$ is the feedback control gains. Such control is often called PD control, where $k_1$ is the P (Proportional)
   gain, and $k_2$ is the D (Derivative) gain.
 
   Hereafter, we will study the closed-loop dynamics of such dynamics. It is interesting because we will find many
-  systems in the real life have such dynamics, such as to control the position by controlling the acceleration, to control
-  the speed by control the acceleration change rate, and etc.
+  systems in the real life have such dynamics, such as to control the position by controlling the acceleration,
+  and etc.
 
   The closed-loop system dynamics is determined by the eigenvalues of the state transition matrix: $T := A - B K$.
   \[
@@ -64,16 +64,10 @@
   \left[\begin{matrix}- \frac{b}{2m} - \frac{\sqrt{- 4 mk + b^{2}}}{2m}\\- \frac{b}{2m} + \frac{\sqrt{- 4 mk + b^{2}}}{2m}\end{matrix}\right]
   \]
 
-  Compared with these two equations, we will find that the closed-loop feedback system dynamics of Eq.
-  \ref{eq:ct-2d-dynamics} is equivalent to the mass-spring-damper system as shown in Fig. [[fig:mass-spring-damper]], where
-  \[ k = k_1 m \] \[ b = k_2 m \]
+  Compared with these two equations, we will find that the closed-loop feedback system dynamics is equivalent to the
+  mass-spring-damper system as shown in Fig. [[fig:mass-spring-damper]], where \[ k = k_1 m \] \[ b = k_2 m \]
 
-  *Remark*: It means the P gain is corresponding to the spring coefficient and the D gain is corresponding to the
-  damping coefficient. The dynamics of Eq. \ref{eq:ct-2d-dynamics} is corresponding to a unit mass mechanics system,
-  where the state variables are the position and the speed, and the control is the force applied to the mass. The
-  closed-loop response of the system corresponding to a *virtual* spring-damper mechanics system.
-
-  The damping radio $\xi$ and the natural frequency $\omega_n$ of the mechanical system are given by:
+  The damping radio $\xi$ and natural frequency $\omega_n$ of the mechanical system are given by:
   \[ \omega_n = \sqrt{\frac{k}{m}}\]
   and
   \[ \xi = \frac{b}{2\sqrt{km}} \]
@@ -83,22 +77,21 @@
   and
   \[ \xi = \frac{k_2}{2\sqrt{k_1}} \]
 
-  This can explain that it will oscillates faster if we increase the P gain, $k_1$, and will decay faster
-  if we increase the D gain, $k_2$.
+  This can explain why the higher the P gain, the faster it oscillates. The higher the D gain, the faster
+  it decays.
 
   There are four classes of pole locations in term of the feedback gains [fn:second-order-system]:
-  - First, if $\xi= 0$, the system is undamped, it will oscillate at the natural frequency.
+  - First, if $\xi= 0$, the system is undamped, it will oscillate at natural frequency.
   - If $0 < \xi < 1$, the system is underdamped.
   - If $\xi = 1$, the system is critically damped.
   - Finally, $\xi > 1$, the system is overdamped.
 
-  For mass-spring-damper system, it is easy to prove that the magnitudes of eigenvalues are negative if the P and
-  the D gain are both positive, and therefore, stable.
+  For mass-spring-damper system, it is easy to prove that the magnitudes of eigenvalues are always negative. Therefore, it is always stable.
 
 [fn:second-order-system] https://ocw.mit.edu/courses/mechanical-engineering/2-003-modeling-dynamics-and-control-i-spring-2005/readings/notesinstalment2.pdf
 
-* Discrete-time second-order system and its control
-  The discrete-time dynamics of interest is
+* Discrete-time second order system and its control
+  The discrete time dynamics of interest is
   \begin{eqnarray*}
   x_{next} &=&
   \begin{bmatrix}
@@ -120,13 +113,15 @@
   x_{next} = (A - B K) x
   \]
   The system response is determined by the poles of $A - B K$, which are:
-  \[
+  #+name: lambda1
+  \begin{equation}
   \lambda_1 = 1 - \frac{dt^{2} k_{1}}{4} - \frac{dt k_{2}}{2} - \frac{\sqrt{dt^{2} \left(dt^{2} k_{1}^{2} + 4 dt k_{1} k_{2} - 16 k_{1} + 4 k_{2}^{2}\right)}}{4}
-  \]
+  \end{equation}
 
-  \[
+  #+name: lambda2
+  \begin{equation}
   \lambda_2 = 1 - \frac{dt^{2} k_{1}}{4} - \frac{dt k_{2}}{2} + \frac{\sqrt{dt^{2} \left(dt^{2} k_{1}^{2} + 4 dt k_{1} k_{2} - 16 k_{1} + 4 k_{2}^{2}\right)}}{4}
-  \]
+  \end{equation}
 
   #+begin_center
   #+caption: Mapping for constant normalized frequencies $\omega_n T$
@@ -198,9 +193,47 @@
 
 [fn:dt-system] Discrete Systems https://fenix.tecnico.ulisboa.pt/downloadFile/3779580204929/Control_Mark%20Cannon.pdf
 
+* Discrete-time second order system critical damping
+  Critical damping occurs when the two eigen values are equal, therefore,
+  we need to solve 
+  \[
+  \frac{dt^{2} k_{1}^{2}}{4} + dt k_{1} k_{2} - 4 k_{1} + k_{2}^{2} = 0
+  \]
+  
+  The solutions are 
+  \begin{equation}
+  k_1 = \frac{- 2 dt k_{2} - 4 \sqrt{- 2 dt k_{2} + 4} + 8}{dt^{2}}
+  \end{equation}
+  or
+  \begin{equation}
+  k_1 = \frac{- 2 dt k_{2} + 4 \sqrt{- 2 dt k_{2} + 4} + 8}{dt^{2}}
+  \end{equation}
+  and the corresponding eigenvalues are
+  \begin{equation}
+  \lambda_1  = \lambda_2 = \sqrt{- 2 dt k_{2} + 4} - 1
+  \end{equation}
+  and
+  \begin{equation}
+  \lambda_1 = \lambda_2 = - \sqrt{- 2 dt k_{2} + 4} - 1
+  \end{equation}
+  
+  #+caption: $k_1$ and its corresponding eigenvalue as a function of $k_2$ for $dt=0.2$
+  #+attr_html: :width 800px
+  #+label: fig:critical-damping
+  [[file:critical_damping.png]]
+
+  As we can see in Fig. [[fig:critical-damping]]
+  only one of these solutions gives a system that is stable and without oscillation,
+  The stable eigenvalue is:
+  \begin{equation}
+  \lambda_1 = \lambda_2 = \sqrt{- 2 dt k_{2} + 4} - 1
+  \end{equation}
+    
+  There is a special case, where both eigenvalues become zero. The corresponding gains are:
+  $k_1 = 1 / dt^2$ and $k_2 = 3/(2dt)$ .
 
 * Appendix 1
-  Octave code to calculate poles in s-plant
+  Octave code to calculate continuous-time system's poles in s-plant
   #+begin_src octave
   pkg load symbolic
   syms a1 a2 a3 a4; A = [a1, a2; a3 a4]
@@ -215,23 +248,49 @@
   T = subs(T, b2, 1)
   eig(T)
   #+end_src
-* Appendix 2
-  Octave code to calculate poles in s-plant
-  #+begin_src octave
-  pkg load symbolic;
-  syms a1 a2 a3 a4 b1 b2 k1 k2 dt
-  A = [a1 a2;
-       a3 a4]
-  B = [b1;
-       b2]
-  K = [k1 k2]
-  T = A - B * K;
-  T = subs(T, a1, 1)
-  T = subs(T, a2, dt)
-  T = subs(T, a3, 0)
-  T = subs(T, a4, 1)
-  T = subs(T, b1, dt^2/2)
-  T = subs(T, b2, dt)
 
-  simplify(eig(T))
+* Appendix 2
+  #+begin_src octave 
+    pkg load symbolic;
+    syms a1 a2 a3 a4 b1 b2 k1 k2 dt
+    A = [a1 a2;
+    a3 a4]
+    B = [b1;
+    b2]
+    K = [k1 k2]
+    T = A - B * K;
+    LL =  eig(A - B*K);
+    
+    %% Specialize
+    LL= simplify(subs(LL, {a1, a2, a3, a4, b1, b2}, {1, dt, 0, 1, dt^2/2, dt}));
+    
+    %% Specialize
+    T= simplify(subs(T, {a1, a2, a3, a4, b1, b2}, {1, dt, 0, 1, dt^2/2, dt}));
+
+    %% [LL, T] = get_system_eigenvalues();
   #+end_src
+
+  #+RESULTS:
+
+
+  #+begin_src octave :session :noweb
+    [LL, T] = get_system_eigenvalues();
+
+    syms dt k1 k2 
+    f1 = (LL(1) - LL(2) ) ^ 2
+    f2 = (LL(1) + LL(2) ) / 2;
+    ## k1 in term of k2 when critical damping occurs
+    ## the solution is not unique, but only the first one give stable system
+    k1_k2 = solve(f1 == 0, k1)
+
+    ## the eigen values in term of k2 when critical damping occurs
+    lambda_k2 = subs(f2, k1, k1_k2)
+
+    dt_s = 0.2;
+    fun_lambda = @(k2) function_handle(lambda_k2)(dt_s, k2)
+    fun_k1 = @(k2) function_handle(k1_k2)(dt_s, k2)
+  #+end_src
+  
+* Appendix 3  
+  Octave code to calculate critical damping gains
+  
